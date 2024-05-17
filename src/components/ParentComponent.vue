@@ -8,16 +8,7 @@
         <p>TERIMA KASIH TELAH BERBELANJA</p>
       </template>
     </ChildComponent>
-    <div v-if="childData.length > 0">
-      <p>Data yang diterima dari ChildComponent:</p>
-      <ul class="child-data-list">
-        <li v-for="(data, index) in childData" :key="index" class="child-data-item">{{ data }}</li>
-      </ul>
     </div>
-    <div v-else>
-      <p>Tidak ada data dari ChildComponent</p>
-    </div>
-  </div>
 </template>
 
 <script>

@@ -26,6 +26,29 @@
       </div>
       <button type="submit" class="submit-button">Submit</button>
     </form>
+
+    <!-- Tampilkan pesan hanya jika data telah disubmit -->
+    <p v-if="submittedData.length > 0">Data yang diterima dari ChildComponent:</p>
+    
+    <!-- Tabel untuk menampilkan data yang disubmit -->
+    <table v-if="submittedData.length" class="data-table">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Alamat</th>
+          <th>Nomor Telepon</th>
+          <th>Pilihan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(data, index) in submittedData" :key="index">
+          <td>{{ data.inputData }}</td>
+          <td>{{ data.inputAddress }}</td>
+          <td>{{ data.inputPhoneNumber }}</td>
+          <td>{{ data.selectedOption }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -36,7 +59,8 @@ export default {
       inputData: '',
       inputAddress: '',
       inputPhoneNumber: '',
-      selectedOption: 'Member' // Default: 'Member'
+      selectedOption: 'Member', // Default: 'Member'
+      submittedData: [] // Array to store submitted data
     };
   },
   methods: {
@@ -52,6 +76,10 @@ export default {
       
       // Emit event childEvent dengan data yang dimasukkan
       this.$emit('childEvent', data);
+
+      // Push data to submittedData array
+      this.submittedData.push(data);
+
       // Reset form setelah disubmit
       this.inputData = '';
       this.inputAddress = '';
@@ -102,5 +130,26 @@ export default {
 
 .submit-button:hover {
   background-color: #2980b9; /* Warna biru muda saat hover */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Ruang atas dari tabel */
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #3498db; /* Warna biru untuk header */
+  color: #fff; /* Warna teks putih untuk header */
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Warna abu-abu muda untuk baris genap */
 }
 </style>
